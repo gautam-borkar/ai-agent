@@ -1,6 +1,6 @@
 from langchain_core.messages import HumanMessage
 from langchain_core.tools import tool
-from langchain_groq import ChatGroq
+from langchain_ollama import ChatOllama
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import StateGraph, MessagesState, START, END
 from langgraph.prebuilt import ToolNode
@@ -10,19 +10,19 @@ from typing import Literal
 
 # Define the tools for the agent to use
 @tool
-def search(query: str):
-    """Call to surf the web."""
+def get_weather(query: str):
+    """Use this to get real time weather information."""
     # This is just a placeholder, but don't tell LLM that...
-    if "sf" in query.lower() or "san francisco" in query.lower():
+    if "sfo" in query.lower() or "san francisco" in query.lower():
         return "It's 60 degrees and foggy."
     return "It's 90 degrees and sunny."
 
 
-tools = [search]
+tools = [get_weather]
 
 tool_node = ToolNode(tools=tools)
 
-model = ChatGroq(model="llama-3.3-70b-versatile", temperature=0).bind_tools(tools=tools)
+model = ChatOllama(model="llama3.2", temperature=0).bind_tools(tools=tools)
 
 
 # Define a function that determines whether to continue or not
@@ -79,7 +79,7 @@ app = workflow.compile(checkpointer=checkpointer)
 
 # Use the Runnable
 final_state = app.invoke(
-    {"messages": [HumanMessage(content="how is sf")]},
+    {"messages": [HumanMessage(content="how is weather in San Francisco")]},
     config={"configurable": {"thread_id": 42}},
 )
 print(final_state["messages"][-1].content)
