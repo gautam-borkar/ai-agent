@@ -1,5 +1,16 @@
 # For langgraph project
-dotenv
+python-dotenv
 ipython
 langchain-ollama
 langgraph
+
+
+# For PhiData project
+# duckduckgo-search
+# fastapi
+# groq
+# phidata
+# python-dotenv
+# sqlalchemy
+# uvicorn
+# yfinance
