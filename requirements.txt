@@ -1,2 +1,5 @@
+# For langgraph project
+dotenv
+ipython
 langchain-ollama
 langgraph
