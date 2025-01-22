@@ -1,3 +1,5 @@
+from dotenv import load_dotenv
+
 from langchain_ollama import ChatOllama
 from langchain_core.tools import tool
 from langchain_core.messages import SystemMessage, HumanMessage
@@ -5,9 +7,11 @@ from langchain_core.messages import SystemMessage, HumanMessage
 from langgraph.graph import MessagesState, StateGraph, START, END
 from langgraph.prebuilt import ToolNode, tools_condition
 
+load_dotenv()
+
 
 @tool
-def add(a, b):
+def add(a: int, b: int) -> int:
     """Add a and b.
 
     Args:
@@ -18,7 +22,7 @@ def add(a, b):
 
 
 @tool
-def subtract(a, b):
+def subtract(a: int, b: int) -> int:
     """Subtract a from b.
 
     Args:
@@ -29,7 +33,7 @@ def subtract(a, b):
 
 
 @tool
-def multiply(a, b):
+def multiply(a: int, b: int) -> int:
     """Multiply a and b.
 
     Args:
@@ -40,7 +44,7 @@ def multiply(a, b):
 
 
 @tool
-def divide(a, b):
+def divide(a: int, b: int) -> float:
     """Divide a by b.
 
     Args:
